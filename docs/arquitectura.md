@@ -36,7 +36,7 @@ El siguiente diagrama representa el flujo de datos y la separación de responsab
 |  - Almacenamiento Persistente (Base de datos del sistema)      |
 |  - Modelos de Datos: Productos, Categorías, Historial de Stock   |
 +-----------------------------------------------------------------+
-
+```
 ---
 
 ## 2. Diagrama de Arquitectura del Sistema
