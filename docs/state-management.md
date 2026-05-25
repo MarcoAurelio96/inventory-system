@@ -37,3 +37,31 @@ Sincroniza el estado seleccionado de Zustand con el almacenamiento físico del n
 
 ### ¿Por qué persistir `sidebarOpen` y NO `searchQuery`?
 En la configuración del store se implementó la función `partialize`:
+
+## 3. TanStack Query (Estado Servidor)
+
+Gestionamos el estado asíncrono con TanStack Query (caché inteligente).
+
+A. Resiliencia: Actualizaciones Optimistas y Rollback
+La UI cambia antes de confirmar con el servidor. Si ocurre un error (ej. 500), ejecutamos un rollback automático usando el snapshot guardado en onMutate.
+
+Prueba de Resiliencia (Simulación 500):
+Puedes inyectar un error temporal en src/app/api/products/[id]/stock/route.ts para validar el comportamiento:
+
+export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+  // Descomenta para probar el rollback automático
+  // return NextResponse.json({ error: "Error de servidor" }, { status: 500 });
+  
+  // ... resto de tu lógica normal
+}
+
+B. Ciclo de Vida (React Query DevTools)
+Al navegar, observamos los siguientes estados:
+
+* fetching: Petición activa al servidor (/api/products).
+* fresh: Datos recientes. Navegación instantánea sin peticiones extra si estamos dentro del staleTime.
+* stale: Datos obsoletos. Se realizará un refetch en segundo plano la próxima vez que se requieran.
+
+Comportamiento: Si los datos están fresh, la transición es instantánea. Si están stale, verás un breve estado fetching en DevTools mientras la aplicación se sincroniza en segundo plano, manteniendo la fluidez total para el usuario.
+
+¿Está el formato ahora como lo necesitabas?
