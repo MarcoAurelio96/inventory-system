@@ -35,3 +35,25 @@ export function useCreateCategoryMutation() {
     },
   });
 }
+
+export function useDeleteCategoryMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(`/api/categories/${id}`, { 
+        method: "DELETE" 
+      });
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Error al eliminar la categoría");
+      }
+      
+      return true;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
+    },
+  });
+}
