@@ -1,6 +1,6 @@
 "use client";
 
-import { useProductsQuery } from "@/hooks/use-products";
+import { useProductsQuery } from "../hooks/use-products";
 import { ProductCard } from "./product-card";
 
 export function ProductList() {
