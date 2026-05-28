@@ -34,7 +34,7 @@ export const handlers = [
 
   http.patch("/api/products/:id/stock", async ({ params, request }) => {
     const { stock } = await request.json() as { stock: number };
-    const product = mockProducts.find((p) => p.id === params.id);
+    const product = mockProducts.find((p: any) => p.id === params.id);
     if (!product) return HttpResponse.json({ error: "No encontrado" }, { status: 404 });
     return HttpResponse.json({ ...product, stock });
   }),
