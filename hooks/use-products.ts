@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useUIStore } from "@/stores/ui-store";
+import { useUIStore } from "../stores/ui-store";
 import type { Product } from "@prisma/client";
 
 type ProductWithCategory = Product & { category: { id: string; name: string } };

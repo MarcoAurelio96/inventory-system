@@ -1,6 +1,6 @@
 "use client";
 
-import { useUpdateStockMutation, useDeleteProductMutation } from "@/hooks/use-products";
+import { useUpdateStockMutation, useDeleteProductMutation } from "../hooks/use-products";
 import type { Product } from "@prisma/client";
 
 type ProductWithCategory = Product & { category: { id: string; name: string } };
