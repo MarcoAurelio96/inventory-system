@@ -7,7 +7,7 @@ const createProductSchema = z.object({
   description: z.string().optional(),
   price: z.number().positive("El precio debe ser positivo"),
   stock: z.number().int().min(0, "El stock no puede ser negativo").default(0),
-  categoryId: z.string().cuid("El ID de categoría no es válido"),
+  categoryId: z.string().min(1, "El ID de categoría es obligatorio"),
 });
 
 export async function GET(request: Request) {
